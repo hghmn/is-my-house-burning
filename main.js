@@ -33,7 +33,6 @@ for ( var i = 0; i < process.argv.length; i+=2 ) {
 console.log( '---------\n' );
 console.log( 'calculating closest fires from you, up to ' + options.threshold + ' km away.');
 console.log( 'lat: ' + options.lat + ' lon: ' + options.lon + '\n');
-// console.log( '---------\n' );
 
 // ==================================================
 // Lat Long Functions
