@@ -3,6 +3,7 @@
   "description": "Scrape Inciweb feed to determine how close the closest fire is to my house",
   "version": "0.1.0",
   "devDependencies": {
+    "node-getopt": "^0.2.3",
     "xml2js": "^0.4.9"
   }
 }
