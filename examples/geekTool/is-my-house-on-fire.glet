@@ -1,3 +1,7 @@
-## place this geektool script on the desktop to find out if yosemite is burning
+## Place this GeekTool script on the desktop to find out if yosemite is burning
 ## change the lat & long to your coords for more useful info
+
 echo "`/usr/local/bin/node /Users/nhughes/Development/HacketyHack/isCaliOnFire/index.js -t 100 -lat 37.735969 -lon -119.601631`
+
+## Haven't used GeekTool? Get it here: http://projects.tynsoe.org/en/geektool/
+## It is geeky. It is a tool. It is cool.
