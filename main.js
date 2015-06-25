@@ -9,11 +9,11 @@ var http = require('http'),
 
 // node-getopt  to scrape command line
 var opt = require('node-getopt').create([
-  ['t'  , 'threshold=ARG'   , 'threshold distance from center to search. Defaults to 100km.'],
-  ['l'  , 'latitude=ARG'    , 'latitude for center of search.' ],
-  ['n'  , 'longitude=ARG'   , 'longitude for center of search.' ],
-  ['h'  , 'help'            , 'display this help.'],
-  ['v'  , 'version'         , 'show version.']
+  [ 't' , 'threshold=ARG' , 'threshold distance from center to search. Defaults to 100km.' ],
+  [ 'l' , 'latitude=ARG'  , 'latitude for center of search.' ],
+  [ 'n' , 'longitude=ARG' , 'longitude for center of search.' ],
+  [ 'h' , 'help'          , 'display this help.' ],
+  [ 'v' , 'version'       , 'show version.' ]
 ])              // create Getopt instance
 .bindHelp()     // bind option 'help' to default action
 .parseSystem(); // parse command line
@@ -33,20 +33,6 @@ var options = {
   lat : parseFloat( opt.options.latitude )  || 37.735969, // yosemite valley
   lon : parseFloat( opt.options.longitude ) || -119.601631
 };
-
-/* // scrape command line arguments
-for ( var i = 0; i < process.argv.length; i+=2 ) {
-  if( /(-t|--threshold)/.test( process.argv[ i ] ) && process.argv[ i + 1 ] && "NaN" !== parseFloat( process.argv[ i + 1 ] ) ) {
-    // get threshold
-    options.threshold = parseFloat( process.argv[ i + 1 ] );
-  } else if( /(-lat|--latitute)/.test( process.argv[ i ] ) && process.argv[ i + 1 ] && "NaN" !== parseFloat( process.argv[ i + 1 ] ) ) {
-    // get latitute
-    options.lat = parseFloat( process.argv[ i + 1 ] );
-  } else if( /(-lon|--longitude)/.test( process.argv[ i ] ) && process.argv[ i + 1 ] && "NaN" !== parseFloat( process.argv[ i + 1 ] ) ) {
-    // get longitude
-    options.lon = parseFloat( process.argv[ i + 1 ] );
-  }
-} */
 
 // optput greeting
 console.log( '----------\n' );
@@ -68,10 +54,11 @@ if (typeof(Number.prototype.toRadians) === "undefined") {
 
 /** 
  * Calculates distance between two points on the earth's surface
+ * output the distance in km
  * http://www.movable-type.co.uk/scripts/latlong.html
  */
 function calcDistance( lat1, lon1, lat2, lon2 ){
-  var R = 6371000; // metres
+  var R = 6371000 / 1000; // kilometers
   var φ1 = lat1.toRadians();
   var φ2 = lat2.toRadians();
   var Δφ = (lat2-lat1).toRadians();
@@ -83,9 +70,7 @@ function calcDistance( lat1, lon1, lat2, lon2 ){
 
   var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
 
-  var d = R * c;
-
-  return d / 1000; // output km
+  return R * c;
 }
 
 
@@ -116,14 +101,20 @@ parser.addListener('end', function(result) {
         j++;
 
       if( distance < options.threshold ) {
-        var output = '----------\n' + fires[i].title[0] + '\n' +
-          'distance  : ' + distance.toPrecision(5)  + 'km ('+ ( distance * 0.621371 ).toPrecision(5) +' miles)' +
-          'direction : ' + direction +
-          'fire size : ' + ( size ? size[1] : 'no info' ) +
-          'info link : ' + fires[i].link[0] + '\n' +
-          fires[i].description[0] + '\n';
+        var output = [
+          '----------',
+          ' ',
+          fires[i].title[0],
+          ' ',
+          'distance  : ' + distance.toPrecision(5)  + 'km (' + ( distance * 0.621371 ).toPrecision(5) + ' miles)' ,
+          'direction : ' + direction ,
+          'fire size : ' + ( size ? size[1] : 'no info' ) ,
+          'info link : ' + fires[i].link[0] ,
+          ' ' ,
+          fires[i].description[0] + '\n'
+        ];
 
-        console.log( output );
+        console.log( output.join('\n') );
       }
     }
   }
