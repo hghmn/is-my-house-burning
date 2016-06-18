@@ -1,18 +1,21 @@
 {
   "name": "is-my-house-burning",
   "description": "Scrape Inciweb feed to determine how close the closest fire is to my house",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "devDependencies": {
     "tslint": "latest",
     "typescript": "latest"
   },
   "scripts": {
-    "predev": "rm -rf dist && tsc",
-    "dev": "node dist/index.js"
+    "build": "rm -rf dist && tsc",
+    "predev": "npm run build",
+    "dev": "node dist/index.js",
+    "test": "node dist/cli.js -r 100 -l 37.735969 -n -119.601631"
   },
   "dependencies": {
     "joi": "^8.4.2",
     "xml-parser": "^1.2.1",
     "xml2js": "^0.4.16",
+    "yargs": "^4.7.1"
   }
 }

@@ -1,7 +1,9 @@
 {
   "name": "is-my-house-burning",
   "version": false,
-  "dependencies": {},
+  "dependencies": {
+    "yargs": "registry:npm/yargs#3.31.0+20160316010718"
+  },
   "globalDependencies": {
     "joi": "registry:dt/joi#9.0.0+20160602140522",
     "node": "registry:dt/node#6.0.0+20160613154055"
